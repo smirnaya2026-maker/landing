@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>СТИЛЬ — Швейное производство премиум-класса</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:    #FAF8F5;
+  --cream2:   #F0EBE3;
+  --coal:     #1C1C1A;
+  --taupe:    #8B7D6B;
+  --terra:    #6B3D2E;
+  --terra2:   #8B4F3C;
+  --border:   #D4C9B8;
+  --white:    #FFFFFF;
+  --serif:    Georgia, 'Times New Roman', serif;
+  --sans:     -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --ease:     cubic-bezier(.4,0,.2,1);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--cream); color: var(--coal); line-height: 1.6; overflow-x: hidden; }
+
+h1,h2,h3,h4 { font-family: var(--serif); font-weight: 400; line-height: 1.15; }
+h1 { font-size: clamp(2.4rem, 6.5vw, 5.5rem); }
+h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); }
+h3 { font-size: clamp(1.2rem, 2vw, 1.6rem); }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem); }
+.section { padding: clamp(4rem, 9vw, 8rem) 0; }
+
+.label {
+  display: inline-block;
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--terra); margin-bottom: 1rem;
+}
+.section-sub { color: var(--taupe); font-size: 1.05rem; margin: .75rem 0 3rem; max-width: 540px; line-height: 1.75; }
+
+/* ── ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in  { opacity: 1; transform: translateY(0); }
+.reveal:nth-child(2) { transition-delay: .1s; }
+.reveal:nth-child(3) { transition-delay: .2s; }
+.reveal:nth-child(4) { transition-delay: .3s; }
+.reveal:nth-child(5) { transition-delay: .4s; }
+.reveal:nth-child(6) { transition-delay: .5s; }
+
+/* ══════════════════════════════════════
+   HEADER
+══════════════════════════════════════ */
+.header {
+  position: fixed; inset: 0 0 auto;
+  z-index: 200;
+  padding: 1.4rem 0;
+  transition: background .4s var(--ease), box-shadow .4s var(--ease), padding .4s var(--ease);
+}
+.header.solid {
+  background: rgba(250,248,245,.97);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 var(--border);
+  padding: .9rem 0;
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+
+.logo {
+  font-family: var(--serif); font-size: 1.45rem;
+  letter-spacing: .22em; text-decoration: none;
+  color: #fff; transition: color .4s;
+  flex-shrink: 0;
+}
+.header.solid .logo { color: var(--coal); }
+
+nav ul { display: flex; gap: 2rem; list-style: none; }
+nav a {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  text-decoration: none; color: rgba(255,255,255,.8);
+  transition: color .3s;
+}
+.header.solid nav a { color: var(--coal); }
+nav a:hover { color: var(--terra); }
+
+.header-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+.hdr-phone { font-size: .85rem; color: rgba(255,255,255,.75); text-decoration: none; transition: color .3s; }
+.header.solid .hdr-phone { color: var(--coal); }
+.hdr-phone:hover { color: var(--terra); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .55rem 1.1rem;
+  font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer; border: none;
+  transition: background .3s, transform .2s, box-shadow .3s;
+}
+.btn-terra  { background: var(--terra); color: #fff; }
+.btn-terra:hover  { background: var(--terra2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(107,61,46,.35); }
+.btn-outline-w { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.3); }
+.btn-outline-w:hover { border-color: rgba(255,255,255,.7); background: rgba(255,255,255,.08); }
+.btn-coal   { background: var(--coal); color: #fff; }
+.btn-coal:hover { background: #333; }
+
+.burger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.burger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: all .35s; }
+.header.solid .burger span { background: var(--coal); }
+.burger.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px,4.5px); }
+.burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px,-4.5px); }
+
+/* Mobile menu */
+.mob-menu {
+  display: none; position: fixed; inset: 0;
+  z-index: 190; background: var(--coal);
+  flex-direction: column; justify-content: center; align-items: flex-start;
+  padding: 2rem clamp(1.5rem,5vw,3rem);
+  gap: 1rem;
+}
+.mob-menu.open { display: flex; animation: mobIn .35s var(--ease); }
+@keyframes mobIn { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
+.mob-menu ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+.mob-menu a {
+  font-family: var(--serif); font-size: clamp(2rem,8vw,3.5rem);
+  color: rgba(255,255,255,.85); text-decoration: none;
+  transition: color .3s;
+}
+.mob-menu a:hover { color: var(--terra); }
+.mob-contacts { margin-top: 2.5rem; display: flex; flex-direction: column; gap: .75rem; }
+.mob-contacts a { font-size: .95rem; color: rgba(255,255,255,.45); text-decoration: none; }
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero {
+  position: relative; min-height: 100svh;
+  display: flex; align-items: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('hero.jpeg');
+  background-size: cover;
+  background-position: center top;
+}
+/* fabric texture */
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg,   transparent, transparent 3px, rgba(255,255,255,.015) 3px, rgba(255,255,255,.015) 4px),
+    repeating-linear-gradient(90deg,  transparent, transparent 3px, rgba(255,255,255,.01)  3px, rgba(255,255,255,.01)  4px);
+  background-size: 8px 8px;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(10,7,5,.62) 0%, rgba(10,7,5,.38) 55%, rgba(10,7,5,.18) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 9rem 0 6rem;
+  max-width: 780px;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--border); opacity: .7;
+  border: 1px solid rgba(212,201,184,.25);
+  padding: .35rem 1rem; margin-bottom: 2rem;
+}
+.hero h1 {
+  color: #fff; font-style: italic; font-weight: 400;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 32px rgba(0,0,0,.4);
+}
+.hero h1 em { font-style: normal; color: var(--border); }
+.hero-sub {
+  font-size: clamp(.95rem,1.4vw,1.1rem);
+  color: rgba(255,255,255,.6); line-height: 1.8;
+  margin-bottom: 2.5rem; max-width: 500px;
+}
+.hero-tags { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2.5rem; }
+.hero-tag {
+  font-size: .68rem; letter-spacing: .08em;
+  color: rgba(255,255,255,.45);
+  padding: .28rem .8rem;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* bottom stats bar */
+.hero-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  display: grid; grid-template-columns: repeat(3,1fr);
+  background: rgba(10,7,5,.65);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(212,201,184,.1);
+}
+.hero-stat {
+  padding: 1.5rem 2rem;
+  border-right: 1px solid rgba(212,201,184,.08);
+}
+.hero-stat:last-child { border-right: none; }
+.hs-num {
+  display: block;
+  font-family: var(--serif); font-size: clamp(1.6rem,3vw,2.2rem);
+  color: #fff; line-height: 1;
+}
+.hs-lbl {
+  display: block;
+  font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.38); margin-top: .3rem;
+}
+
+/* scroll cue */
+.scroll-cue {
+  position: absolute; bottom: 7rem; right: 2.5rem;
+  z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .5rem;
+  font-size: .6rem; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  writing-mode: vertical-rl;
+}
+.scroll-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom,rgba(255,255,255,.3),transparent);
+  animation: pulse 2.2s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:.9} }
+
+/* ══════════════════════════════════════
+   PAIN — "Знакомо?"
+══════════════════════════════════════ */
+.pain { background: var(--cream2); }
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+  gap: 1px; background: var(--border);
+  margin-top: 3rem;
+  border: 1px solid var(--border);
+}
+.pain-card {
+  background: var(--cream2);
+  padding: 1.75rem;
+  display: flex; gap: 1rem; align-items: flex-start;
+  transition: background .3s;
+}
+.pain-card:hover { background: var(--cream); }
+.pain-ico {
+  width: 38px; height: 38px; flex-shrink: 0;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--terra); font-size: 1rem;
+}
+.pain-txt { font-size: .9rem; line-height: 1.65; color: var(--coal); }
+.pain-txt strong { display: block; margin-bottom: .3rem; }
+
+/* ══════════════════════════════════════
+   SERVICES
+══════════════════════════════════════ */
+.services { background: var(--white); }
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  gap: 1.25rem; margin-top: 3rem;
+}
+.svc-card {
+  padding: 2rem; border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: border-color .3s, transform .3s, box-shadow .3s;
+}
+.svc-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; width: 3px; height: 0;
+  background: var(--terra);
+  transition: height .4s var(--ease);
+}
+.svc-card:hover::before { height: 100%; }
+.svc-card:hover { border-color: var(--terra); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(28,28,26,.1); }
+.svc-num {
+  font-family: var(--serif); font-size: 3rem; font-weight: 400;
+  color: var(--border); line-height: 1; margin-bottom: .75rem;
+}
+.svc-card h3 { margin-bottom: .6rem; }
+.svc-card p { font-size: .88rem; color: var(--taupe); line-height: 1.75; }
+
+/* ══════════════════════════════════════
+   WHY US
+══════════════════════════════════════ */
+.why { background: var(--coal); }
+.why .label { color: var(--taupe); }
+.why h2 { color: #fff; }
+.why .section-sub { color: rgba(255,255,255,.45); }
+
+.why-stats {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border: 1px solid rgba(212,201,184,.12);
+  margin: 3rem 0;
+}
+.ws {
+  padding: 2.5rem 2rem; text-align: center;
+  border-right: 1px solid rgba(212,201,184,.12);
+}
+.ws:last-child { border-right: none; }
+.ws-num {
+  display: block;
+  font-family: var(--serif); font-size: clamp(2.2rem,4.5vw,3.5rem);
+  color: #fff; line-height: 1;
+}
+.ws-unit { color: var(--terra); }
+.ws-lbl {
+  display: block; margin-top: .5rem;
+  font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+}
+
+.why-cards {
+  display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+  gap: 1.25rem;
+}
+.why-card {
+  padding: 1.75rem; border: 1px solid rgba(212,201,184,.1);
+  transition: border-color .3s;
+}
+.why-card:hover { border-color: rgba(212,201,184,.3); }
+.why-card-icon { font-size: 1.4rem; margin-bottom: .9rem; }
+.why-card h3 { font-size: 1.15rem; color: #fff; margin-bottom: .5rem; }
+.why-card p { font-size: .85rem; color: rgba(255,255,255,.42); line-height: 1.75; }
+
+/* ══════════════════════════════════════
+   PORTFOLIO
+══════════════════════════════════════ */
+.portfolio { background: var(--cream); }
+.pf-filters {
+  display: flex; flex-wrap: wrap; gap: 0;
+  border: 1px solid var(--border);
+  width: fit-content; margin: 2.5rem 0;
+  overflow: hidden;
+}
+.pf-btn {
+  padding: .7rem 1.4rem; background: none; border: none;
+  border-right: 1px solid var(--border);
+  font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--taupe); cursor: pointer;
+  transition: all .3s;
+}
+.pf-btn:last-child { border-right: none; }
+.pf-btn.active, .pf-btn:hover { background: var(--coal); color: #fff; }
+
+.pf-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: .85rem;
+}
+.pf-item {
+  position: relative; overflow: hidden; cursor: pointer;
+  transition: opacity .4s, transform .4s;
+}
+.pf-item.hide { display: none; }
+.pf-item:nth-child(1) { grid-row: span 2; }
+
+.pf-ph {
+  width: 100%; height: 280px;
+  display: flex; align-items: flex-end; padding: 1.25rem;
+  position: relative; overflow: hidden;
+  transition: transform .5s var(--ease);
+  background: #1c1510;
+}
+.pf-ph img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  transition: transform .5s var(--ease);
+}
+.pf-item:hover .pf-ph img { transform: scale(1.04); }
+.pf-item:nth-child(1) .pf-ph { height: 100%; min-height: 570px; }
+
+/* gradient placeholders simulating fabric shots */
+.g1 { background: linear-gradient(145deg,#2e1e16 0%,#5c3d2e 50%,#1e140f 100%); }
+.g2 { background: linear-gradient(160deg,#3a2820 0%,#6b4c38 55%,#231810 100%); }
+.g3 { background: linear-gradient(125deg,#26201c 0%,#504030 55%,#1a1510 100%); }
+.g4 { background: linear-gradient(150deg,#341f18 0%,#7a5a45 55%,#1e1510 100%); }
+.g5 { background: linear-gradient(135deg,#1e1a16 0%,#4a3d2e 55%,#141210 100%); }
+.g6 { background: linear-gradient(145deg,#302820 0%,#62503e 55%,#1c1810 100%); }
+.g7 { background: linear-gradient(130deg,#3c2a1e 0%,#7a6050 55%,#22180e 100%); }
+.g8 { background: linear-gradient(140deg,#281e18 0%,#584535 55%,#181210 100%); }
+
+/* weave texture on placeholders */
+.pf-ph::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg,  transparent, transparent 2px, rgba(255,255,255,.025) 2px, rgba(255,255,255,.025) 3px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,.015) 2px, rgba(255,255,255,.015) 3px);
+  background-size: 6px 6px;
+}
+.pf-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top,rgba(20,14,10,.75) 0%,transparent 55%);
+  opacity: 0; transition: opacity .4s;
+}
+.pf-item:hover .pf-overlay { opacity: 1; }
+.pf-item:hover .pf-ph { transform: none; }
+
+.pf-info {
+  position: relative; z-index: 1;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .35s, transform .35s;
+}
+.pf-item:hover .pf-info { opacity: 1; transform: translateY(0); }
+.pf-cat { font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: .25rem; }
+.pf-title { font-family: var(--serif); font-size: 1.15rem; color: #fff; }
+
+.pf-more { margin-top: 2.5rem; text-align: center; }
+
+/* ══════════════════════════════════════
+   PROCESS
+══════════════════════════════════════ */
+.process { background: var(--cream2); }
+
+.proc-wrap { position: relative; margin-top: 4rem; }
+.proc-axis {
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 1px; background: var(--border);
+  transform: translateX(-50%);
+}
+.proc-axis-fill {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 0; background: var(--terra);
+  transition: height 1.4s var(--ease);
+}
+
+.proc-steps { position: relative; }
+.proc-step {
+  display: grid;
+  grid-template-columns: 1fr 56px 1fr;
+  align-items: center;
+  padding: 2rem 0;
+}
+/* odd: content left */
+.proc-step:nth-child(odd)  .ps-body { grid-column:1; text-align:right; padding-right: 2rem; }
+.proc-step:nth-child(odd)  .ps-dot  { grid-column:2; }
+.proc-step:nth-child(odd)  .ps-gap  { grid-column:3; }
+/* even: content right */
+.proc-step:nth-child(even) .ps-gap  { grid-column:1; }
+.proc-step:nth-child(even) .ps-dot  { grid-column:2; }
+.proc-step:nth-child(even) .ps-body { grid-column:3; text-align:left; padding-left: 2rem; }
+
+.ps-dot {
+  width: 46px; height: 46px; border-radius: 50%;
+  margin: 0 auto;
+  background: var(--cream2); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1rem; color: var(--taupe);
+  transition: all .4s; z-index: 1; position: relative;
+}
+.proc-step.lit .ps-dot { background: var(--terra); border-color: var(--terra); color: #fff; }
+
+.ps-body h3 { font-size: 1.2rem; margin-bottom: .35rem; }
+.ps-body p  { font-size: .85rem; color: var(--taupe); line-height: 1.7; }
+.ps-time {
+  display: inline-block; margin-top: .5rem;
+  font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--terra);
+}
+
+/* ══════════════════════════════════════
+   REVIEWS
+══════════════════════════════════════ */
+.reviews { background: var(--white); }
+.rev-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  gap: 1.5rem; margin-top: 3rem;
+}
+.rev-card { padding: 2rem; border: 1px solid var(--border); }
+.rev-q {
+  font-family: var(--serif); font-size: 3.5rem; line-height: .4;
+  color: var(--border); margin-bottom: 1rem; display: block;
+}
+.rev-text {
+  font-size: .93rem; font-style: italic; line-height: 1.85;
+  color: var(--coal); margin-bottom: 1.5rem;
+}
+.rev-meta {
+  display: flex; align-items: center; gap: 1rem;
+  padding-top: 1.25rem; border-top: 1px solid var(--border);
+}
+.rev-av {
+  width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1.1rem; color: #fff;
+}
+.av1 { background: linear-gradient(135deg,var(--terra),var(--terra2)); }
+.av2 { background: linear-gradient(135deg,#3a2418,#6b4c38); }
+.av3 { background: linear-gradient(135deg,var(--taupe),#a08878); }
+.rev-name { font-weight: 600; font-size: .88rem; }
+.rev-brand { font-size: .72rem; color: var(--taupe); letter-spacing: .04em; margin-top: .1rem; }
+
+.rev-case {
+  margin-top: 2.5rem; padding: 1.75rem;
+  background: var(--cream2); border-left: 3px solid var(--terra);
+}
+.rev-case-lbl {
+  font-size: .65rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--terra); margin-bottom: .75rem;
+}
+.rev-case p { font-size: .88rem; line-height: 1.75; color: var(--coal); }
+
+/* ══════════════════════════════════════
+   PRICING
+══════════════════════════════════════ */
+.pricing { background: var(--cream2); }
+.pr-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1.25rem; margin-top: 3rem;
+}
+.pr-card {
+  padding: 2.25rem; background: var(--white);
+  border: 1px solid var(--border);
+  transition: transform .35s, box-shadow .35s;
+}
+.pr-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(28,28,26,.12); }
+.pr-card.feat { background: var(--coal); border-color: var(--coal); }
+
+.pr-badge {
+  font-size: .65rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--terra); margin-bottom: 1.25rem; display: block;
+}
+.pr-card.feat .pr-badge { color: var(--border); }
+.pr-name {
+  font-family: var(--serif); font-size: 2rem;
+  margin-bottom: .4rem;
+}
+.pr-card.feat .pr-name { color: #fff; }
+.pr-vol { font-size: .85rem; color: var(--taupe); margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+.pr-card.feat .pr-vol { color: rgba(255,255,255,.42); border-color: rgba(212,201,184,.12); }
+
+.pr-list { list-style: none; margin-bottom: 2rem; display: flex; flex-direction: column; gap: .7rem; }
+.pr-list li { font-size: .86rem; display: flex; gap: .75rem; color: var(--coal); }
+.pr-card.feat .pr-list li { color: rgba(255,255,255,.65); }
+.pr-list li::before { content:'—'; color: var(--terra); flex-shrink:0; }
+
+.pr-cta {
+  display: block; width: 100%; text-align: center;
+  padding: .85rem; border: 1px solid var(--terra);
+  background: none; color: var(--terra);
+  font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  cursor: pointer; transition: all .3s; text-decoration: none;
+}
+.pr-cta:hover  { background: var(--terra); color: #fff; }
+.pr-card.feat .pr-cta { background: var(--terra); color: #fff; }
+.pr-card.feat .pr-cta:hover { background: var(--terra2); }
+.pr-note { margin-top: 2rem; text-align: center; font-size: .8rem; color: var(--taupe); }
+
+/* ══════════════════════════════════════
+   FORM / CTA
+══════════════════════════════════════ */
+.cta-section { background: var(--coal); }
+.cta-section .label  { color: var(--taupe); }
+.cta-section h2 { color: #fff; }
+.cta-section .section-sub { color: rgba(255,255,255,.42); }
+
+.form-wrap { max-width: 660px; margin: 0 auto; }
+
+/* progress */
+.f-progress-bar {
+  height: 2px; background: rgba(255,255,255,.08);
+  margin-bottom: 3rem; position: relative;
+}
+.f-progress-fill {
+  position: absolute; top: 0; left: 0; height: 100%;
+  background: var(--terra);
+  transition: width .5s var(--ease);
+  width: 33.33%;
+}
+.f-step-labels {
+  display: flex; justify-content: space-between;
+  margin-bottom: .5rem;
+}
+.f-step-lbl {
+  font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.2); transition: color .3s;
+}
+.f-step-lbl.cur { color: #fff; }
+.f-step-lbl.done { color: var(--terra); }
+
+/* steps */
+.f-steps { position: relative; }
+.f-step { display: none; }
+.f-step.cur { display: block; animation: sin .4s var(--ease); }
+@keyframes sin { from{opacity:0;transform:translateX(16px)} to{opacity:1;transform:translateX(0)} }
+
+.f-q {
+  font-family: var(--serif); font-size: clamp(1.5rem,3.5vw,2rem);
+  color: #fff; margin-bottom: 2rem; font-style: italic;
+}
+
+.f-opts {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: .75rem; margin-bottom: 2rem;
+}
+.f-opt {
+  padding: 1.2rem; border: 1px solid rgba(212,201,184,.15);
+  background: none; color: rgba(255,255,255,.65);
+  font-size: .88rem; text-align: left; cursor: pointer;
+  transition: all .3s;
+}
+.f-opt:hover, .f-opt.sel { border-color: var(--terra); color: #fff; background: rgba(107,61,46,.2); }
+
+.f-vols { display: flex; flex-direction: column; gap: .7rem; margin-bottom: 2rem; }
+.f-vol {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem; border: 1px solid rgba(212,201,184,.15);
+  cursor: pointer; transition: all .3s;
+}
+.f-vol:hover, .f-vol.sel { border-color: var(--terra); background: rgba(107,61,46,.15); }
+.f-vol-r {
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+  border: 1px solid rgba(212,201,184,.3); position: relative;
+  transition: border-color .3s;
+}
+.f-vol.sel .f-vol-r { border-color: var(--terra); }
+.f-vol.sel .f-vol-r::after {
+  content: ''; position: absolute; inset: 3px;
+  border-radius: 50%; background: var(--terra);
+}
+.f-vol-num { font-family: var(--serif); font-size: 1.4rem; color: #fff; }
+.f-vol-lbl { font-size: .78rem; color: rgba(255,255,255,.42); }
+
+.f-inputs { display: flex; flex-direction: column; gap: .9rem; margin-bottom: 2rem; }
+.f-grp { display: flex; flex-direction: column; gap: .35rem; }
+.f-grp label {
+  font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+}
+.f-inp {
+  padding: .85rem 1rem;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(212,201,184,.15);
+  color: #fff; font-family: var(--sans); font-size: .95rem;
+  width: 100%; outline: none; transition: border-color .3s;
+}
+.f-inp:focus { border-color: var(--terra); }
+.f-inp::placeholder { color: rgba(255,255,255,.18); }
+
+.f-nav { display: flex; align-items: center; gap: 1.25rem; }
+.f-back {
+  background: none; border: none;
+  font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); cursor: pointer; transition: color .3s;
+}
+.f-back:hover { color: rgba(255,255,255,.7); }
+.f-note { font-size: .72rem; color: rgba(255,255,255,.25); margin-top: 1.5rem; }
+
+/* success */
+.f-success {
+  display: none; text-align: center; padding: 3rem 1rem;
+}
+.f-success.show { display: block; animation: sin .5s var(--ease); }
+.f-success-icon { font-size: 2.5rem; margin-bottom: 1.5rem; }
+.f-success h3 { font-family: var(--serif); font-size: 2rem; color: #fff; margin-bottom: 1rem; }
+.f-success p { color: rgba(255,255,255,.42); font-size: .95rem; }
+
+/* alt contacts */
+.cta-alt {
+  margin-top: 5rem; padding-top: 3rem;
+  border-top: 1px solid rgba(212,201,184,.08);
+  display: flex; flex-wrap: wrap; gap: 2.5rem; justify-content: center;
+}
+.calt { display: flex; flex-direction: column; align-items: center; gap: .4rem; }
+.calt-lbl {
+  font-size: .6rem; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+}
+.calt a { font-size: .95rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color .3s; }
+.calt a:hover { color: var(--terra); }
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+.footer { background: #0d0b09; padding: 3.5rem 0 2rem; }
+.footer-top {
+  display: flex; justify-content: space-between;
+  gap: 3rem; flex-wrap: wrap; padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.footer-brand .logo-f {
+  font-family: var(--serif); font-size: 1.4rem; letter-spacing: .2em;
+  color: rgba(255,255,255,.55); display: block; margin-bottom: .75rem;
+}
+.footer-brand p { font-size: .78rem; color: rgba(255,255,255,.25); line-height: 1.7; max-width: 260px; }
+.footer-nav-col h4 { font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.25); margin-bottom: 1rem; }
+.footer-nav-col ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+.footer-nav-col a { font-size: .82rem; color: rgba(255,255,255,.38); text-decoration: none; transition: color .3s; }
+.footer-nav-col a:hover { color: var(--terra); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+  margin-top: 2rem;
+}
+.footer-copy { font-size: .72rem; color: rgba(255,255,255,.18); }
+.footer-made { font-size: .72rem; color: rgba(255,255,255,.18); }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:1024px){
+  .why-stats { grid-template-columns:repeat(2,1fr); }
+  .ws:nth-child(2){ border-right:none; }
+  .ws:nth-child(n+3){ border-top:1px solid rgba(212,201,184,.12); }
+  .pr-grid { grid-template-columns:1fr; max-width:440px; margin-inline:auto; }
+  .pf-grid { grid-template-columns:repeat(2,1fr); }
+  .pf-item:nth-child(1) { grid-row:span 1; }
+  .pf-item:nth-child(1) .pf-ph { min-height:280px; }
+}
+@media(max-width:768px){
+  nav, .header-right { display:none; }
+  .burger { display:flex; }
+  .hero-bar { grid-template-columns:repeat(3,1fr); position:relative; }
+  /* process — single column */
+  .proc-axis { display:none; }
+  .proc-step { grid-template-columns:40px 1fr; gap:0 1rem; }
+  .proc-step:nth-child(odd)  .ps-body,
+  .proc-step:nth-child(even) .ps-body { grid-column:2; grid-row:1; text-align:left; padding:0; }
+  .proc-step:nth-child(odd)  .ps-dot,
+  .proc-step:nth-child(even) .ps-dot  { grid-column:1; grid-row:1; }
+  .proc-step .ps-gap { display:none; }
+  .f-opts { grid-template-columns:1fr; }
+  .pf-grid { grid-template-columns:1fr; }
+}
+@media(max-width:540px){
+  .hero-bar { grid-template-columns:1fr; }
+  .hero-stat { border-right:none; border-top:1px solid rgba(212,201,184,.08); }
+  .hero-stat:first-child { border-top:none; }
+  .why-stats { grid-template-columns:1fr; }
+  .ws { border-right:none; }
+  .ws + .ws { border-top:1px solid rgba(212,201,184,.12); }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header class="header" id="hdr">
+  <div class="container">
+    <div class="header-inner">
+      <a href="#" class="logo">СТИЛЬ</a>
+
+      <nav>
+        <ul>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#portfolio">Портфолио</a></li>
+          <li><a href="#process">Процесс</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="#contact">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-right">
+        <a href="tel:+79055575850" class="hdr-phone">+7 (905) 557-58-50</a>
+        <a href="https://t.me/Style_ceh" class="btn btn-terra">Telegram</a>
+      </div>
+
+      <button class="burger" id="burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mob-menu" id="mobMenu">
+  <ul>
+    <li><a href="#services"   class="mob-link">Услуги</a></li>
+    <li><a href="#portfolio"  class="mob-link">Портфолио</a></li>
+    <li><a href="#process"    class="mob-link">Процесс</a></li>
+    <li><a href="#reviews"    class="mob-link">Отзывы</a></li>
+    <li><a href="#contact"    class="mob-link">Контакты</a></li>
+  </ul>
+  <div class="mob-contacts">
+    <a href="tel:+79055575850">+7 (905) 557-58-50</a>
+    <a href="https://t.me/Style_ceh">Telegram: @Style_ceh</a>
+    <a href="https://instagram.com/shveinyi_ceh_stil" target="_blank">Instagram: @shveinyi_ceh_stil</a>
+    <a href="mailto:style_ceh@mail.ru">style_ceh@mail.ru</a>
+    <a href="https://2gis.ru/moscow/geo/70000001044606636" target="_blank">г. Москва, Киевское ш., км 22-й, д. 4, стр. 5</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Швейное производство — Россия</span>
+
+      <h1>Шьём <em>сложные</em><br>коллекции<br>от 5 единиц</h1>
+
+      <p class="hero-sub">
+        Костюмы, платья, детская одежда — пошив для дизайнеров
+        и брендов мидл и премиум сегмента. Сложный крой,
+        премиальные обработки, реальные сроки.
+      </p>
+
+      <div class="hero-tags">
+        <span class="hero-tag">От 5 единиц в размере</span>
+        <span class="hero-tag">Сложный крой</span>
+        <span class="hero-tag">Мужское · Женское · Детское</span>
+        <span class="hero-tag">Ответ за 4 часа</span>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-terra">Получить расчёт за 24 часа</a>
+        <a href="#portfolio" class="btn btn-outline-w">Смотреть работы</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bar">
+    <div class="hero-stat">
+      <span class="hs-num" data-target="340">0</span>
+      <span class="hs-lbl">Выполненных заказов</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hs-num">от 5<span class="ws-unit"></span></span>
+      <span class="hs-lbl">Единиц в размере</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hs-num" data-target="97">0</span>
+      <span class="hs-lbl">% заказов сданы в срок</span>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Прокрутите</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ SERVICES ═══════════════════ -->
+<section class="services section" id="services">
+  <div class="container">
+    <span class="label reveal">Что мы делаем</span>
+    <h2 class="reveal">Полный цикл пошива<br>под ваш бренд</h2>
+    <p class="section-sub reveal">От технического пакета до готовых изделий в упаковке. Работаем с вашей тканью или помогаем с закупкой материалов.</p>
+
+    <div class="svc-grid">
+      <div class="svc-card reveal">
+        <div class="svc-num">01</div>
+        <h3>Пошив костюмов</h3>
+        <p>Мужские, женские, детские костюмы. Работаем со сложными конструктивными линиями, структурным кроем, подкладочными технологиями и всеми видами обработок.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-num">02</div>
+        <h3>Пошив платьев</h3>
+        <p>Вечерние, деловые, casual и детские платья. Корсетные и бесшовные технологии, сложная драпировка, работа с деликатными тканями — шёлк, органза, кружево.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-num">03</div>
+        <h3>Малые партии</h3>
+        <p>Стартуем от 5 единиц в размере. Тестируйте модели, проверяйте спрос — без риска замороженных складских остатков. Без скрытых минимумов по SKU.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-num">04</div>
+        <h3>Средние партии</h3>
+        <p>До 500 единиц на артикул с гарантией воспроизводимости качества от партии к партии. Фиксируем стандарты в техкарте после согласования образца.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-num">05</div>
+        <h3>Сложный крой</h3>
+        <p>Конструкторы в штате с опытом 10+ лет. Работаем с любой технической документацией — авторские лекала, техпакеты, CAD-файлы. NDA на лекала — по умолчанию.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-num">06</div>
+        <h3>Полный цикл</h3>
+        <p>От раскроя и изготовления до ОТК и упаковки готовых изделий. Фотоотчёт на каждом ключевом этапе. Мы ведём ваш заказ от начала до отгрузки.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ WHY US ═══════════════════ -->
+<section class="why section" id="why">
+  <div class="container">
+    <span class="label reveal">Почему выбирают нас</span>
+    <h2 class="reveal">Конкретика,<br>а не обещания</h2>
+    <p class="section-sub reveal">Дизайнеры возвращаются к нам снова — потому что мы говорим цифрами, а не словами.</p>
+
+    <div class="why-stats">
+      <div class="ws reveal">
+        <span class="ws-num counter" data-target="340">0</span>
+        <span class="ws-lbl">Выполненных заказов</span>
+      </div>
+      <div class="ws reveal">
+        <span class="ws-num"><span class="counter" data-target="97">0</span><span class="ws-unit">%</span></span>
+        <span class="ws-lbl">Сдано точно в срок</span>
+      </div>
+      <div class="ws reveal">
+        <span class="ws-num">от 5</span>
+        <span class="ws-lbl">Единиц в размере</span>
+      </div>
+      <div class="ws reveal">
+        <span class="ws-num">4 ч</span>
+        <span class="ws-lbl">Время ответа</span>
+      </div>
+    </div>
+
+    <div class="why-cards">
+      <div class="why-card reveal">
+        <div class="why-card-icon">🪡</div>
+        <h3>Сложный крой — наш профиль</h3>
+        <p>Не отказываемся от нестандартных задач. Принимаем авторские лекала и техпакеты любой сложности.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-icon">📋</div>
+        <h3>Сроки в договоре</h3>
+        <p>Фиксируем производственный план документально. Срыв дедлайна — наша ответственность, не ваши проблемы.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-icon">🔍</div>
+        <h3>ОТК на каждом этапе</h3>
+        <p>Контроль качества после кроя, пошива и финишной обработки. Каждое изделие проверяется перед отгрузкой.</p>
+      </div>
+
+      <div class="why-card reveal">
+        <div class="why-card-icon">🔒</div>
+        <h3>Конфиденциальность лекал</h3>
+        <p>NDA подписываем по умолчанию. Ваши конструкции, техпакеты и бренд-детали не уходят третьим лицам.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-icon">📸</div>
+        <h3>Фотоотчёт с производства</h3>
+        <p>Отправляем фото на ключевых этапах. Вы всегда знаете, где находится ваш заказ — без запросов.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PORTFOLIO ═══════════════════ -->
+<section class="portfolio section" id="portfolio">
+  <div class="container">
+    <span class="label reveal">Наши работы</span>
+    <h2 class="reveal">Говорим изделиями,<br>а не словами</h2>
+    <p class="section-sub reveal">Реальные работы из нашего производства. Наводите на изображение, чтобы узнать детали.</p>
+
+    <div class="pf-filters reveal">
+      <button class="pf-btn active" data-filter="all">Все</button>
+      <button class="pf-btn" data-filter="suit">Костюмы и пиджаки</button>
+      <button class="pf-btn" data-filter="dress">Платья</button>
+    </div>
+
+    <div class="pf-grid">
+      <div class="pf-item reveal" data-cat="suit">
+        <div class="pf-ph">
+          <img src="img/pf1.png" alt="Белые пиджаки — женская коллекция">
+          <div class="pf-overlay"></div>
+          <div class="pf-info">
+            <div class="pf-cat">Женский пиджак</div>
+            <div class="pf-title">Белые пальто, классический крой</div>
+          </div>
+        </div>
+      </div>
+      <div class="pf-item reveal" data-cat="dress">
+        <div class="pf-ph">
+          <img src="img/pf2.jpg" alt="Платья с вишнёвым принтом">
+          <div class="pf-overlay"></div>
+          <div class="pf-info">
+            <div class="pf-cat">Женское платье</div>
+            <div class="pf-title">Платья с авторским принтом</div>
+          </div>
+        </div>
+      </div>
+      <div class="pf-item reveal" data-cat="dress">
+        <div class="pf-ph">
+          <img src="img/pf3.jpg" alt="Синие платья с цветочным принтом">
+          <div class="pf-overlay"></div>
+          <div class="pf-info">
+            <div class="pf-cat">Женское платье</div>
+            <div class="pf-title">Юбки с цветочным принтом, партия</div>
+          </div>
+        </div>
+      </div>
+      <div class="pf-item reveal" data-cat="suit">
+        <div class="pf-ph">
+          <img src="img/pf4.jpg" alt="Коричневые шерстяные жакеты">
+          <div class="pf-overlay"></div>
+          <div class="pf-info">
+            <div class="pf-cat">Женский жакет</div>
+            <div class="pf-title">Жакеты из шерсти, воротник-стойка</div>
+          </div>
+        </div>
+      </div>
+      <div class="pf-item reveal" data-cat="suit">
+        <div class="pf-ph">
+          <img src="img/pf5.jpg" alt="Бордовый женский костюм">
+          <div class="pf-overlay"></div>
+          <div class="pf-info">
+            <div class="pf-cat">Женский костюм</div>
+            <div class="pf-title">Двубортный пиджак + брюки, оверсайз силуэт</div>
+          </div>
+        </div>
+      </div>
+      <div class="pf-item reveal" data-cat="suit">
+        <div class="pf-ph">
+          <img src="img/pf6.jpg" alt="Тёмно-серые брюки, партия">
+          <div class="pf-overlay"></div>
+          <div class="pf-info">
+            <div class="pf-cat">Брюки · партия</div>
+            <div class="pf-title">Юбки в складку, графитовые</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pf-more reveal">
+      <a href="#contact" class="btn btn-coal" style="padding:.9rem 2.5rem;font-size:.78rem;letter-spacing:.12em">Обсудить вашу коллекцию</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PROCESS ═══════════════════ -->
+<section class="process section" id="process">
+  <div class="container">
+    <span class="label reveal">Как мы работаем</span>
+    <h2 class="reveal">Прозрачный процесс<br>от заявки до отгрузки</h2>
+    <p class="section-sub reveal">Никакого «чёрного ящика». Вы знаете, что происходит с вашим заказом на каждом этапе.</p>
+
+    <div class="proc-wrap">
+      <div class="proc-axis">
+        <div class="proc-axis-fill" id="axFill"></div>
+      </div>
+
+      <div class="proc-steps">
+        <div class="proc-step">
+          <div class="ps-body">
+            <h3>Заявка</h3>
+            <p>Отправляете техзадание, образец или описание идеи. Мы отвечаем в течение 4 часов в рабочее время.</p>
+            <span class="ps-time">День 1</span>
+          </div>
+          <div class="ps-dot">1</div>
+          <div class="ps-gap"></div>
+        </div>
+
+        <div class="proc-step">
+          <div class="ps-body">
+            <h3>Согласование</h3>
+            <p>Уточняем материалы, фурнитуру, конструктивные детали. Подписываем договор с фиксацией сроков.</p>
+            <span class="ps-time">День 1–3</span>
+          </div>
+          <div class="ps-dot">2</div>
+          <div class="ps-gap"></div>
+        </div>
+
+        <div class="proc-step">
+          <div class="ps-gap"></div>
+          <div class="ps-dot">3</div>
+          <div class="ps-body">
+            <h3>Пробный образец</h3>
+            <p>Изготавливаем семпл и отправляем вам на примерку и согласование. После утверждения образца фиксируется финальная стоимость тиража — без скрытых доплат.</p>
+            <span class="ps-time">5–7 рабочих дней</span>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="ps-body">
+            <h3>Производство</h3>
+            <p>Запускаем партию строго по утверждённому образцу. Фотоотчёт после кроя и в процессе пошива.</p>
+            <span class="ps-time">По договору</span>
+          </div>
+          <div class="ps-dot">4</div>
+          <div class="ps-gap"></div>
+        </div>
+
+        <div class="proc-step">
+          <div class="ps-gap"></div>
+          <div class="ps-dot">5</div>
+          <div class="ps-body">
+            <h3>Контроль качества</h3>
+            <p>Каждое изделие проходит ОТК перед упаковкой. Дефекты — переделываем за наш счёт, без дискуссий.</p>
+            <span class="ps-time">Входит в стоимость</span>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="ps-body">
+            <h3>Доставка</h3>
+            <p>Отгружаем транспортной компанией по всей России или самовывоз со склада. Закрывающие документы — в комплекте.</p>
+            <span class="ps-time">День финала</span>
+          </div>
+          <div class="ps-dot">6</div>
+          <div class="ps-gap"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ REVIEWS ═══════════════════ -->
+<section class="reviews section" id="reviews">
+  <div class="container">
+    <span class="label reveal">Отзывы клиентов</span>
+    <h2 class="reveal">Дизайнеры<br>о сотрудничестве</h2>
+    <p class="section-sub reveal">Реальные истории — не анонимные звёздочки.</p>
+
+    <div class="rev-grid">
+      <div class="rev-card reveal">
+        <span class="rev-q">"</span>
+        <p class="rev-text">Наконец нашла производство, которое не переспрашивает «а может попроще сделаем?». Отшили структурные пиджаки с нестандартным кроем точь-в-точь по моим лекалам. Качество строчки — как я и хотела. Теперь только к вам.</p>
+        <div class="rev-meta">
+          <div class="rev-av av1">А</div>
+          <div>
+            <div class="rev-name">Анастасия Вольская</div>
+            <div class="rev-brand">Бренд Volskaya Studio, Москва</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rev-card reveal">
+        <span class="rev-q">"</span>
+        <p class="rev-text">Каждый раз, когда я упаковываю заказ, я любуюсь качеством вашего пошива и хочу ещё раз поблагодарить за совместную работу.</p>
+        <div class="rev-meta">
+          <div class="rev-av av2">А</div>
+          <div>
+            <div class="rev-name">Анастасия Геспер</div>
+            <div class="rev-brand">Бренд Gesper</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rev-card reveal">
+        <span class="rev-q">"</span>
+        <p class="rev-text">Работаем третий сезон. То, что можно отдать малую тестовую партию — это бесценно. Проверили 4 модели по 10 штук, оставили 2 лучших и сделали полный тираж. Ни разу не пожалела о выборе производства.</p>
+        <div class="rev-meta">
+          <div class="rev-av av3">Е</div>
+          <div>
+            <div class="rev-name">Екатерина Лунёва</div>
+            <div class="rev-brand">Дизайнер, бренд Luneva, Екатеринбург</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rev-case reveal" style="margin-top:3rem">
+      <div class="rev-case-lbl">Кейс — детская коллекция</div>
+      <p><strong>Задача:</strong> Бренд Mika Kids — запуск линейки из 3 моделей, 80 единиц, дедлайн 4 недели до старта продаж.<br>
+      <strong>Что сделали:</strong> Изготовили семплы за 6 рабочих дней, согласовали детали, запустили тираж. Параллельно — еженедельные фотоотчёты.<br>
+      <strong>Результат:</strong> Отгрузка за день до дедлайна. Ноль брака. Клиент вернулся через 2 месяца со следующей коллекцией.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PRICING ═══════════════════ -->
+<section class="pricing section" id="pricing">
+  <div class="container">
+    <span class="label reveal">Условия сотрудничества</span>
+    <h2 class="reveal">Стоимость рассчитывается<br>индивидуально</h2>
+    <p class="section-sub reveal">Цена зависит от модели, ткани, фурнитуры и объёма партии. Финальная стоимость фиксируется после утверждения образца — никаких скрытых доплат.</p>
+
+    <div class="reveal" style="margin-top:3rem;text-align:center">
+      <a href="#contact" class="btn btn-terra" style="padding:1rem 2.8rem;font-size:.85rem;letter-spacing:.12em">Рассчитать стоимость пошива</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FORM / CTA ═══════════════════ -->
+<section class="cta-section section" id="contact">
+  <div class="container">
+    <span class="label reveal">Начать работу</span>
+    <h2 class="reveal" style="color:#fff">Пришлите техзадание —<br>рассчитаем бесплатно</h2>
+    <p class="section-sub reveal">Три шага — и ваш персональный расчёт готов за 24 часа.</p>
+
+    <div class="form-wrap">
+      <!-- progress -->
+      <div class="f-step-labels reveal">
+        <span class="f-step-lbl cur" id="lbl1">Тип изделия</span>
+        <span class="f-step-lbl"     id="lbl2">Объём партии</span>
+        <span class="f-step-lbl"     id="lbl3">Контакты</span>
+      </div>
+      <div class="f-progress-bar reveal">
+        <div class="f-progress-fill" id="fBar"></div>
+      </div>
+
+      <div class="f-steps reveal">
+        <!-- Step 1 -->
+        <div class="f-step cur" id="fs1">
+          <p class="f-q">Что хотите произвести?</p>
+          <div class="f-opts">
+            <button class="f-opt" data-val="Женские костюмы">Женские костюмы</button>
+            <button class="f-opt" data-val="Платья">Платья</button>
+            <button class="f-opt" data-val="Мужские костюмы">Мужские костюмы</button>
+            <button class="f-opt" data-val="Детская одежда">Детская одежда</button>
+            <button class="f-opt" data-val="Смешанная коллекция">Смешанная коллекция</button>
+            <button class="f-opt" data-val="Другое">Другое</button>
+          </div>
+          <div class="f-nav">
+            <button class="btn btn-terra" id="toStep2" disabled style="opacity:.4;cursor:not-allowed">Далее →</button>
+          </div>
+          <p class="f-note">Можно выбрать несколько или написать свой вариант</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="f-step" id="fs2">
+          <p class="f-q">Планируемый объём партии?</p>
+          <div class="f-vols">
+            <div class="f-vol" data-vol="5–30 единиц в размере">
+              <div class="f-vol-r"></div>
+              <div>
+                <div class="f-vol-num">5 — 30</div>
+                <div class="f-vol-lbl">единиц в размере · тестовая партия</div>
+              </div>
+            </div>
+            <div class="f-vol" data-vol="30–200 единиц в размере">
+              <div class="f-vol-r"></div>
+              <div>
+                <div class="f-vol-num">30 — 200</div>
+                <div class="f-vol-lbl">единиц в размере · средняя партия</div>
+              </div>
+            </div>
+            <div class="f-vol" data-vol="200+ единиц в размере">
+              <div class="f-vol-r"></div>
+              <div>
+                <div class="f-vol-num">200 +</div>
+                <div class="f-vol-lbl">единиц в размере · полная коллекция</div>
+              </div>
+            </div>
+          </div>
+          <div class="f-nav">
+            <button class="f-back" id="toStep1">← Назад</button>
+            <button class="btn btn-terra" id="toStep3" disabled style="opacity:.4;cursor:not-allowed">Далее →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="f-step" id="fs3">
+          <p class="f-q">Оставьте контакт —<br>рассчитаем за 24 часа</p>
+          <div class="f-inputs">
+            <div class="f-grp">
+              <label>Ваше имя или название бренда</label>
+              <input class="f-inp" id="fName" type="text" placeholder="Анна Соколова / Бренд NOVA">
+            </div>
+            <div class="f-grp">
+              <label>Telegram или телефон</label>
+              <input class="f-inp" id="fContact" type="text" placeholder="@username или +7 900 000 00 00">
+            </div>
+            <div class="f-grp">
+              <label>Коротко о задаче (необязательно)</label>
+              <input class="f-inp" id="fComment" type="text" placeholder="Есть техпакет / Нужна помощь с кроем / ...">
+            </div>
+          </div>
+          <div class="f-nav">
+            <button class="f-back" id="toStep2b">← Назад</button>
+            <button class="btn btn-terra" id="submitBtn">Отправить заявку</button>
+          </div>
+          <p class="f-note">Нажимая «Отправить», вы соглашаетесь на обработку персональных данных. Не передаём данные третьим лицам.</p>
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div class="f-success" id="fSuccess">
+        <div class="f-success-icon">✓</div>
+        <h3>Заявка принята!</h3>
+        <p>Мы свяжемся с вами в течение 4 часов<br>в рабочее время и пришлём расчёт.</p>
+      </div>
+
+      <!-- Alt contacts -->
+      <div class="cta-alt reveal">
+        <div class="calt">
+          <span class="calt-lbl">Телефон</span>
+          <a href="tel:+79055575850">+7 (905) 557-58-50</a>
+        </div>
+        <div class="calt">
+          <span class="calt-lbl">Telegram</span>
+          <a href="https://t.me/Style_ceh">@Style_ceh</a>
+        </div>
+        <div class="calt">
+          <span class="calt-lbl">WhatsApp</span>
+          <a href="https://wa.me/79055575850" target="_blank">+7 (905) 557-58-50</a>
+        </div>
+        <div class="calt">
+          <span class="calt-lbl">Max</span>
+          <a href="https://max.ru/+79055575850" target="_blank">+7 (905) 557-58-50</a>
+        </div>
+        <div class="calt">
+          <span class="calt-lbl">E-mail</span>
+          <a href="mailto:style_ceh@mail.ru">style_ceh@mail.ru</a>
+        </div>
+        <div class="calt">
+          <span class="calt-lbl">Instagram</span>
+          <a href="https://instagram.com/shveinyi_ceh_stil" target="_blank">@shveinyi_ceh_stil</a>
+        </div>
+        <div class="calt">
+          <span class="calt-lbl">Адрес</span>
+          <a href="https://2gis.ru/moscow/geo/70000001044606636" target="_blank">г. Москва, Киевское ш., км 22-й, д. 4, стр. 5</a>
+        </div>
+      </div>
+
+      <!-- 2GIS Map Widget -->
+      <div class="reveal" style="margin-top:4rem; padding-top:3rem; border-top:1px solid rgba(212,201,184,.08);">
+        <p class="calt-lbl" style="text-align:center; margin-bottom:1.5rem; font-size:.65rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.25);">Мы на карте</p>
+        <div style="width:100%; max-width:640px; margin:0 auto; overflow:hidden;">
+          <div style="position:relative; width:100%; padding-bottom:93.75%; /* 600/640 */">
+            <div id="dg-widget-wrap" style="position:absolute; inset:0; width:100%; height:100%;"></div>
+          </div>
+        </div>
+        <div style="margin-top:1rem; text-align:center; display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;">
+          <a class="dg-widget-link" href="http://2gis.ru/moscow/firm/70000001044606636/center/37.43440032005311,55.63730462983677/zoom/16?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=bigMap" target="_blank" style="font-size:.8rem; color:rgba(255,255,255,.45); text-decoration:none;">Посмотреть на карте Москвы</a>
+          <a href="http://2gis.ru/moscow/firm/70000001044606636/photos/70000001044606636/center/37.43440032005311,55.63730462983677/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos" target="_blank" style="font-size:.8rem; color:rgba(255,255,255,.45); text-decoration:none;">Фотографии компании</a>
+          <a href="http://2gis.ru/moscow/center/37.434392,55.636887/zoom/16/routeTab/rsType/bus/to/37.434392,55.636887╎Стиль, швейный цех?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=route" target="_blank" style="font-size:.8rem; color:rgba(255,255,255,.45); text-decoration:none;">Найти проезд</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script charset="utf-8" src="https://widgets.2gis.com/js/DGWidgetLoader.js"></script>
+<script charset="utf-8">
+(function() {
+  function initWidget() {
+    var wrap = document.getElementById('dg-widget-wrap');
+    if (!wrap || typeof DGWidgetLoader === 'undefined') return;
+    new DGWidgetLoader({
+      "width": wrap.offsetWidth || 640,
+      "height": wrap.offsetHeight || 600,
+      "borderColor": "#2a2218",
+      "pos": {"lat": 55.63730462983677, "lon": 37.43440032005311, "zoom": 16},
+      "opt": {"city": "moscow"},
+      "org": [{"id": "70000001044606636"}]
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWidget);
+  } else {
+    initWidget();
+  }
+})();
+</script>
+<noscript style="display:block;text-align:center;color:#c00;font-size:14px;padding:1rem;">Виджет карты использует JavaScript. Включите его в настройках браузера.</noscript>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-f">СТИЛЬ</span>
+        <p>Швейное производство премиум-класса.<br>Костюмы, платья, детская одежда.<br>От 5 единиц в размере.</p>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#portfolio">Портфолио</a></li>
+          <li><a href="#process">Процесс</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="#pricing">Условия</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+79055575850">+7 (905) 557-58-50</a></li>
+          <li><a href="https://t.me/Style_ceh">Telegram: @Style_ceh</a></li>
+          <li><a href="https://instagram.com/shveinyi_ceh_stil" target="_blank">Instagram: @shveinyi_ceh_stil</a></li>
+          <li><a href="mailto:style_ceh@mail.ru">style_ceh@mail.ru</a></li>
+          <li><a href="https://2gis.ru/moscow/geo/70000001044606636" target="_blank">г. Москва, Киевское ш., км 22-й, д. 4, стр. 5</a></li>
+          <li><a href="#contact">Оставить заявку</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Швейное производство «Стиль». Все права защищены.</span>
+      <span class="footer-made">Российское производство · Made with care</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── HEADER on scroll ──
+const hdr = document.getElementById('hdr');
+window.addEventListener('scroll', () => {
+  hdr.classList.toggle('solid', window.scrollY > 60);
+}, { passive: true });
+
+// ── BURGER / mobile menu ──
+const burger  = document.getElementById('burger');
+const mobMenu = document.getElementById('mobMenu');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  mobMenu.classList.toggle('open');
+  document.body.style.overflow = mobMenu.classList.contains('open') ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link').forEach(a => {
+  a.addEventListener('click', () => {
+    burger.classList.remove('open');
+    mobMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// ── REVEAL on scroll (IntersectionObserver) ──
+const revObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+// ── COUNTER animation ──
+function animCount(el) {
+  const target = +el.dataset.target;
+  const dur = 1600;
+  const step = 16;
+  const inc  = target / (dur / step);
+  let cur = 0;
+  const t = setInterval(() => {
+    cur += inc;
+    if (cur >= target) { el.textContent = target; clearInterval(t); }
+    else el.textContent = Math.floor(cur);
+  }, step);
+}
+const cntObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.counter').forEach(animCount);
+      // also hero counters
+      document.querySelectorAll('.hs-num[data-target]').forEach(animCount);
+      cntObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.why-stats, .hero-bar').forEach(el => cntObs.observe(el));
+
+// ── PORTFOLIO filter ──
+document.querySelectorAll('.pf-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.pf-item').forEach(item => {
+      const cats = item.dataset.cat || '';
+      if (f === 'all' || cats.split(' ').includes(f)) {
+        item.classList.remove('hide');
+      } else {
+        item.classList.add('hide');
+      }
+    });
+  });
+});
+
+// ── PROCESS axis fill on scroll ──
+const axFill = document.getElementById('axFill');
+const procWrap = document.querySelector('.proc-wrap');
+const steps    = document.querySelectorAll('.proc-step');
+if (procWrap && axFill) {
+  const procObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        axFill.style.height = '100%';
+        steps.forEach((s, i) => {
+          setTimeout(() => s.classList.add('lit'), i * 200);
+        });
+        procObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  procObs.observe(procWrap);
+}
+
+// ── MULTI-STEP FORM ──
+let step = 1;
+let chosen = { type: '', vol: '' };
+
+function setStep(n) {
+  document.querySelectorAll('.f-step').forEach(s => s.classList.remove('cur'));
+  document.getElementById('fs' + n).classList.add('cur');
+  const pct = { 1: '33.33%', 2: '66.66%', 3: '100%' }[n];
+  document.getElementById('fBar').style.width = pct;
+
+  ['lbl1','lbl2','lbl3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('cur','done');
+    if (i + 1 === n)    el.classList.add('cur');
+    if (i + 1 < n)      el.classList.add('done');
+  });
+  step = n;
+}
+
+// Step 1 options
+document.querySelectorAll('#fs1 .f-opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#fs1 .f-opt').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    chosen.type = btn.dataset.val;
+    const nb = document.getElementById('toStep2');
+    nb.disabled = false; nb.style.opacity = '1'; nb.style.cursor = 'pointer';
+  });
+});
+document.getElementById('toStep2').addEventListener('click', () => { if (chosen.type) setStep(2); });
+
+// Step 2 options
+document.querySelectorAll('.f-vol').forEach(vol => {
+  vol.addEventListener('click', () => {
+    document.querySelectorAll('.f-vol').forEach(v => v.classList.remove('sel'));
+    vol.classList.add('sel');
+    chosen.vol = vol.dataset.vol;
+    const nb = document.getElementById('toStep3');
+    nb.disabled = false; nb.style.opacity = '1'; nb.style.cursor = 'pointer';
+  });
+});
+document.getElementById('toStep1').addEventListener('click', () => setStep(1));
+document.getElementById('toStep3').addEventListener('click', () => { if (chosen.vol) setStep(3); });
+document.getElementById('toStep2b').addEventListener('click', () => setStep(2));
+
+// Submit
+document.getElementById('submitBtn').addEventListener('click', () => {
+  const name    = document.getElementById('fName').value.trim();
+  const contact = document.getElementById('fContact').value.trim();
+  const comment = document.getElementById('fComment').value.trim();
+  if (!name || !contact) {
+    document.getElementById('fName').style.borderColor    = name    ? '' : 'var(--terra)';
+    document.getElementById('fContact').style.borderColor = contact ? '' : 'var(--terra)';
+    return;
+  }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Отправляем…';
+
+  fetch('https://formspree.io/f/xlgvgral', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      'Тип изделия':  chosen.type,
+      'Объём партии': chosen.vol,
+      'Имя / бренд':  name,
+      'Контакт':      contact,
+      'Комментарий':  comment
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.ok) {
+      document.querySelector('.f-steps').style.display        = 'none';
+      document.querySelector('.f-progress-bar').style.display = 'none';
+      document.querySelector('.f-step-labels').style.display  = 'none';
+      document.getElementById('fSuccess').classList.add('show');
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Отправить заявку';
+      alert('Ошибка отправки. Напишите нам напрямую в Telegram: @Style_ceh');
+    }
+  })
+  .catch(() => {
+    btn.disabled = false;
+    btn.textContent = 'Отправить заявку';
+    alert('Нет соединения. Напишите нам напрямую в Telegram: @Style_ceh');
+  });
+});
+
+// ── Scroll to form from pricing buttons ──
+function scrollToForm() {
+  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── Smooth scroll for all anchor links ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
